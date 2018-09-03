@@ -19,11 +19,17 @@ interface AccountDao {
     @Query("SELECT * FROM accounts WHERE name LIKE :name")
     fun findByName(name: String): Account
 
+    @Query("SELECT * FROM accounts WHERE id LIKE :id")
+    fun findById(id: Long): Account
+
     @Insert(onConflict = REPLACE)
     fun insert(account: Account)
 
     @Query("DELETE from accounts")
     fun deleteAll()
+
+    @Query("DELETE from accounts WHERE id = :id")
+    fun deleteByAccountId(id: Long)
 
     @Update
     fun updateAccounts(vararg account: Account)

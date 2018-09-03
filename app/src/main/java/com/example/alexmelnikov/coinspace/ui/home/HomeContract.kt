@@ -1,9 +1,12 @@
 package com.example.alexmelnikov.coinspace.ui.home
 
 import android.view.View
+import com.example.alexmelnikov.coinspace.model.Currency
 import com.example.alexmelnikov.coinspace.model.entities.Account
 import com.example.alexmelnikov.coinspace.model.entities.Operation
-import com.example.alexmelnikov.coinspace.model.entities.UserBalance
+import com.example.alexmelnikov.coinspace.model.entities.OperationType
+import com.example.alexmelnikov.coinspace.model.entities.Pattern
+import com.example.alexmelnikov.coinspace.model.interactors.Money
 import com.example.alexmelnikov.coinspace.ui.BaseContract
 
 class HomeContract {
@@ -14,13 +17,15 @@ class HomeContract {
 
         fun openOperationFragment()
 
+        fun openOperationPatternFragment()
+
         fun closeOperationFragment()
 
         fun updateUserBalanceItemPagerView(mainBalance: String, additionalBalance: String)
 
         fun updateAccountItemPagerView(account: Account)
 
-        fun setupViewPager(balance: UserBalance, accounts: List<Account>)
+        fun setupViewPager(balance: Money, accounts: List<Account>, startPage:Int = 0)
 
         fun animateNewOperationButtonToCheck()
 
@@ -28,11 +33,17 @@ class HomeContract {
 
         fun openSettingsActivity()
 
+        fun getViewPagerPosition(): Int
+
         fun openAccountsFragmentRequest()
 
         fun openStatisticsFragmentRequest(animationCenter: View)
 
         fun showAboutDialog()
+
+        fun initPatternsRv(patterns: List<Pattern>)
+
+        fun setupOperationsAdapter(operations: List<Operation>)
 
     }
 
@@ -48,7 +59,9 @@ class HomeContract {
 
         fun resetLayout()
 
-        fun setupNewOperationLayout(type: Operation.OperationType, accounts: List<Account>)
+        fun setupNewOperationLayout(type: OperationType, accounts: MutableMap<Long, Account>)
+
+        fun showPeriodicDialog()
     }
 
     interface Presenter : BaseContract.Presenter<HomeView> {
@@ -61,13 +74,23 @@ class HomeContract {
 
         fun newOperationButtonClick()
 
+        fun newOperationPatternButtonClick()
+
         fun newExpenseButtonClick()
+
+        fun addNewPattern(pattern: Pattern, account: Account)
 
         fun newIncomeButtonClick()
 
         fun clearButtonClick()
 
-        fun newOperationRequest(sum: Float, account: Account, category: String, currency: String)
+        fun newOperationRequest(sum: Float, account: Account, category: String, description: String,
+                                currency: String,
+                                repeat: Int)
+
+        fun newOperationRequest(operation: Operation, accountId: Int)
+
+        fun newRemoveOperationRequest(operationId: Long, accountId: Long)
 
         fun animateOperationAddButtonRequest()
 
@@ -77,9 +100,11 @@ class HomeContract {
 
         fun accountsButtonClick()
 
+        fun initPatternsRV()
+
         fun statisticsButtonClick(animationCenter: View)
 
-        fun getMainCurrency(): String
+        fun getMainCurrency(): Currency
 
     }
 }

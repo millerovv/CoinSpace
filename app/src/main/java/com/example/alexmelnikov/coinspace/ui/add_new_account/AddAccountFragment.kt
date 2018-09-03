@@ -16,8 +16,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.example.alexmelnikov.coinspace.BaseApp
 import com.example.alexmelnikov.coinspace.R
 import com.example.alexmelnikov.coinspace.di.component.DaggerFragmentComponent
+import com.example.alexmelnikov.coinspace.di.module.FragmentModule
 import com.example.alexmelnikov.coinspace.ui.RevealCircleAnimatorHelper
 import com.thebluealliance.spectrum.SpectrumDialog
 import kotlinx.android.synthetic.main.fragment_add_account.*
@@ -32,7 +34,9 @@ class AddAccountFragment : Fragment(), AddAccountContract.View {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        DaggerFragmentComponent.builder().build().inject(this)
+        DaggerFragmentComponent.builder()
+            .fragmentModule(FragmentModule(activity!!.applicationContext as BaseApp)).build()
+            .inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -55,7 +59,7 @@ class AddAccountFragment : Fragment(), AddAccountContract.View {
         val spinnerArrayAdapter = ArrayAdapter<String>(activity, R.layout.spinner_item_white_text, currencies)
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         currency_spinner.adapter = spinnerArrayAdapter
-        currency_spinner.setSelection(currencies.indexOf((presenter.mainCurrencyRequest())))
+        currency_spinner.setSelection(currencies.indexOf((presenter.mainCurrencyRequest().toString())))
 
         et_account_name.inputType = InputType.TYPE_CLASS_TEXT
         et_account_name.requestFocus()
