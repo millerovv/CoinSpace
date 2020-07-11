@@ -74,7 +74,7 @@ class StatisticsFragment : Fragment(), StatisticsContract.View {
         l.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
         l.orientation = Legend.LegendOrientation.VERTICAL
         l.setDrawInside(false)
-        l.yOffset = 30f
+        l.yOffset = 20f
 
         presenter.chartDataRequest()
 

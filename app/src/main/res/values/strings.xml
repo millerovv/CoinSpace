@@ -59,7 +59,7 @@
     <string name="icon_eur">€</string>
     <string name="info_dialog_content">
         Мобильное приложение для отслеживания финансов\n<a href="https://academy.yandex.ru/events/mobdev/msk-2018/">Yandex School of Mobile Development 2018</a>
-        \n\nDeveloped by <a href="https://github.com/vovaksenov99">Aksenov Vladimir</a>\n<a href="http://aksenov-vladimir.herokuapp.com?lang=Rus">Сайт разработчика</a>
+        \n\nDeveloped by <a href="https://github.com/millerovv">Melnikov Alexander</a> and <a href="https://github.com/vovaksenov99">Aksenov Vladimir</a>
     </string>
     <string name="text_new_account_header">Новый счет</string>
     <string name="hint_account_name">Название счета</string>
